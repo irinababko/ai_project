@@ -1,0 +1,62 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+body{
+  margin:0;padding:36px 28px;background:var(--bg-0);
+  display:flex;gap:14px;flex-wrap:wrap;align-items:center;
+  position:relative;overflow:hidden;
+}
+/* ambient blue glow so glass actually has something to refract */
+body::before{
+  content:"";position:absolute;left:-120px;top:-80px;width:360px;height:200px;
+  background:rgba(10,92,255,0.55);filter:blur(80px);border-radius:50%;z-index:0;
+}
+body::after{
+  content:"";position:absolute;right:-120px;bottom:-100px;width:380px;height:220px;
+  background:rgba(123,100,255,0.45);filter:blur(90px);border-radius:50%;z-index:0;
+}
+.chip{
+  position:relative;z-index:1;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:9px 18px 9px 12px;border-radius:9999px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,0.10) 0%,rgba(255,255,255,0.02) 60%,rgba(255,255,255,0.00) 100%),
+    radial-gradient(120% 140% at 30% -10%,rgba(255,255,255,0.18) 0%,rgba(255,255,255,0) 60%),
+    rgba(20,20,20,0.35);
+  border:1px solid rgba(255,255,255,0.18);
+  backdrop-filter:blur(28px) saturate(140%);
+  -webkit-backdrop-filter:blur(28px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.28),
+    inset 0 -1px 0 rgba(255,255,255,0.05),
+    0 1px 0 rgba(0,0,0,0.4),
+    0 10px 30px rgba(10,12,40,0.45);
+  font:500 14.5px/1 var(--font-display);
+  color:#fff;letter-spacing:.005em;
+}
+.chip::before{ /* top-edge highlight sweep */
+  content:"";position:absolute;inset:1px 1px auto 1px;height:50%;
+  border-radius:9999px 9999px 0 0;
+  background:linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0));
+  pointer-events:none;mix-blend-mode:screen;
+}
+.dot{
+  width:24px;height:24px;border-radius:7px;flex:none;
+  display:inline-flex;align-items:center;justify-content:center;
+  font:700 10px/1 var(--font-data);color:#fff;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,0.18), 0 2px 6px rgba(0,0,0,0.4);
+}
+.note{
+  flex-basis:100%;z-index:1;
+  font:500 11px/1.3 var(--font-data);color:var(--fg-3);
+  text-transform:uppercase;letter-spacing:.08em;margin-top:4px;
+}
+</style></head><body>
+<div class="chip"><span class="dot" style="background:linear-gradient(135deg,#e8a07a,#c45a36)">A</span>Claude</div>
+<div class="chip"><span class="dot" style="background:linear-gradient(135deg,#1a1a1a,#000)">a</span>ChatGPT</div>
+<div class="chip"><span class="dot" style="background:linear-gradient(135deg,#0d2c2c,#000)">P</span>Perplexity</div>
+<div class="chip"><span class="dot" style="background:linear-gradient(135deg,#4285f4,#1a73e8)">G</span>Gemini</div>
+<div class="chip"><span class="dot" style="background:linear-gradient(135deg,#1a1a1a,#000)">𝕏</span>Grok</div>
+<div class="chip"><span class="dot" style="background:linear-gradient(135deg,#36c5f0,#0078d4)">▦</span>Copilot</div>
+<div class="note">AI-platform chip · frosted glass capsule · backdrop-blur 28 · top-edge highlight + soft drop</div>
+</body></html>

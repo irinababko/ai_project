@@ -48,30 +48,38 @@ function HeroOrbit() {
         filter: "blur(20px)",
       }}/>
 
-      {/* Floating chips on the outer ring */}
-      <div style={{ position: "absolute", left: "50%", top: -22, transform: "translateX(-50%)" }}>
-        <AIChip {...AI_PLATFORMS[3]} />
-      </div>
-      <div style={{ position: "absolute", right: -10, top: 80 }}>
-        <AIChip {...AI_PLATFORMS[2]} />
-      </div>
-      <div style={{ position: "absolute", left: -32, top: 162 }}>
-        <AIChip {...AI_PLATFORMS[0]} />
-      </div>
-      <div style={{ position: "absolute", left: -18, bottom: 110 }}>
-        <AIChip {...AI_PLATFORMS[5]} />
-      </div>
-      <div style={{ position: "absolute", right: 18, bottom: 130 }}>
-        <AIChip {...AI_PLATFORMS[1]} />
-      </div>
-      <div style={{ position: "absolute", right: 230, bottom: 60 }}>
-        <AIChip {...AI_PLATFORMS[4]} />
+      {/* Rotating orbit ring — chips orbit, counter-rotation keeps labels upright */}
+      <div className="orbit-ring">
+        <div style={{ position: "absolute", left: "50%", top: -22, transform: "translateX(-50%)" }}>
+          <AIChip {...AI_PLATFORMS[3]} />
+        </div>
+        <div style={{ position: "absolute", right: -10, top: 80 }}>
+          <AIChip {...AI_PLATFORMS[2]} />
+        </div>
+        <div style={{ position: "absolute", left: -32, top: 162 }}>
+          <AIChip {...AI_PLATFORMS[0]} />
+        </div>
+        <div style={{ position: "absolute", left: -18, bottom: 110 }}>
+          <AIChip {...AI_PLATFORMS[5]} />
+        </div>
+        <div style={{ position: "absolute", right: 18, bottom: 130 }}>
+          <AIChip {...AI_PLATFORMS[1]} />
+        </div>
+        <div style={{ position: "absolute", right: 230, bottom: 60 }}>
+          <AIChip {...AI_PLATFORMS[4]} />
+        </div>
       </div>
 
-      {/* Inner stat panels */}
-      <StatPanelLarge style={{ position: "absolute", left: 210, top: 130 }} />
-      <StatPanelTrend  style={{ position: "absolute", left: 100, top: 280 }} />
-      <StatPanelLeads  style={{ position: "absolute", left: 175, top: 410 }} />
+      {/* Inner stat panels — subtle float, positioned outside the rotating ring */}
+      <div className="float-card" style={{ left: 210, top: 130 }}>
+        <StatPanelLarge />
+      </div>
+      <div className="float-card float-card--2" style={{ left: 100, top: 280 }}>
+        <StatPanelTrend />
+      </div>
+      <div className="float-card float-card--3" style={{ left: 175, top: 410 }}>
+        <StatPanelLeads />
+      </div>
 
       {/* "Visible on" caption */}
       <div style={{

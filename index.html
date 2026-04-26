@@ -19,6 +19,14 @@
 </head>
 <body class="page">
 
+  <!-- Interactive gradient blob layer — sits behind all content -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="bg-blob bg-blob--1" data-speed="0.25"></div>
+    <div class="bg-blob bg-blob--2" data-speed="0.42"></div>
+    <div class="bg-blob bg-blob--3" data-speed="0.62"></div>
+    <div class="bg-blob bg-blob--4" data-speed="0.32"></div>
+  </div>
+
   <!-- Ambient background -->
   <div class="page__grid" aria-hidden="true"></div>
   <div class="page__flash page__flash--left" aria-hidden="true"></div>
@@ -51,73 +59,75 @@
       <span class="glow glow--blue" style="left:-200px; top:1000px; width:720px; height:320px;" aria-hidden="true"></span>
 
       <div class="hero__inner">
-        <span class="eyebrow">
+        <span class="eyebrow" data-reveal="fade">
           <span class="eyebrow__dot" aria-hidden="true"></span>
           SEO + GEO + AEO — One System
         </span>
 
-        <h1 id="hero-title" class="hero__title">
+        <h1 id="hero-title" class="hero__title" data-reveal="up" style="--reveal-delay:80ms">
           Rank Where Customers Ask&nbsp;Google,<br>
           Maps, and AI&nbsp;answers
         </h1>
 
-        <p class="lead hero__lead">
+        <p class="lead hero__lead" data-reveal="fade" style="--reveal-delay:160ms">
           Get a visibility audit and a practical plan: what to publish, what to fix,
           and where to build authority so your brand becomes the recommended option.
         </p>
 
-        <div class="hero__ctas">
+        <div class="hero__ctas" data-reveal="fade" style="--reveal-delay:240ms">
           <a class="btn btn--framed" href="#contact"><span class="btn__inner">book a call</span></a>
           <a class="btn btn--secondary" href="#contact">Get a Visibility Audit</a>
         </div>
 
         <!-- Orbit visual -->
-        <div class="orbit" role="img" aria-label="Proximity orbit — visibility across AI assistants and search platforms">
+        <div class="orbit" data-reveal="zoom" style="--reveal-delay:320ms" role="img" aria-label="Proximity orbit — visibility across AI assistants and search platforms">
           <span class="orbit__ring orbit__ring--outer" aria-hidden="true"></span>
           <span class="orbit__ring orbit__ring--inner" aria-hidden="true"></span>
           <span class="orbit__glow" aria-hidden="true"></span>
           <span class="orbit__globe" aria-hidden="true"></span>
 
-          <!-- AI platform chips -->
-          <span class="orbit__chip orbit__chip--top">
-            <span class="chip">
-              <span class="chip__glyph" style="background:linear-gradient(135deg,#4285f4,#1a73e8);">G</span>
-              Gemini
+          <!-- AI platform chips — wrapped in rotor for orbit animation -->
+          <div class="orbit__rotor">
+            <span class="orbit__chip" style="--angle:-90deg">
+              <span class="chip">
+                <span class="chip__glyph" style="background:linear-gradient(135deg,#4285f4,#1a73e8);">G</span>
+                Gemini
+              </span>
             </span>
-          </span>
-          <span class="orbit__chip orbit__chip--ne">
-            <span class="chip">
-              <span class="chip__glyph" style="background:linear-gradient(135deg,#0d2c2c,#000);">P</span>
-              Perplexity
+            <span class="orbit__chip" style="--angle:-38deg">
+              <span class="chip">
+                <span class="chip__glyph" style="background:linear-gradient(135deg,#0d2c2c,#000);">P</span>
+                Perplexity
+              </span>
             </span>
-          </span>
-          <span class="orbit__chip orbit__chip--w">
-            <span class="chip">
-              <span class="chip__glyph" style="background:linear-gradient(135deg,#e8a07a,#c45a36);">A</span>
-              Claude
+            <span class="orbit__chip" style="--angle:200deg">
+              <span class="chip">
+                <span class="chip__glyph" style="background:linear-gradient(135deg,#e8a07a,#c45a36);">A</span>
+                Claude
+              </span>
             </span>
-          </span>
-          <span class="orbit__chip orbit__chip--sw">
-            <span class="chip">
-              <span class="chip__glyph" style="background:linear-gradient(135deg,#36c5f0,#0078d4);">▦</span>
-              Copilot
+            <span class="orbit__chip" style="--angle:148deg">
+              <span class="chip">
+                <span class="chip__glyph" style="background:linear-gradient(135deg,#36c5f0,#0078d4);">▦</span>
+                Copilot
+              </span>
             </span>
-          </span>
-          <span class="orbit__chip orbit__chip--se">
-            <span class="chip">
-              <span class="chip__glyph" style="background:linear-gradient(135deg,#1a1a1a,#000);">a</span>
-              ChatGPT
+            <span class="orbit__chip" style="--angle:33deg">
+              <span class="chip">
+                <span class="chip__glyph" style="background:linear-gradient(135deg,#1a1a1a,#000);">a</span>
+                ChatGPT
+              </span>
             </span>
-          </span>
-          <span class="orbit__chip orbit__chip--s">
-            <span class="chip">
-              <span class="chip__glyph" style="background:linear-gradient(135deg,#1a1a1a,#000);">𝕏</span>
-              Grok
+            <span class="orbit__chip" style="--angle:85deg">
+              <span class="chip">
+                <span class="chip__glyph" style="background:linear-gradient(135deg,#1a1a1a,#000);">𝕏</span>
+                Grok
+              </span>
             </span>
-          </span>
+          </div>
 
           <!-- Stat panels -->
-          <div class="glass stat stat--rank">
+          <div class="glass stat stat--rank stat--float-a">
             <div class="stat__label">Local Ranking Growth</div>
             <div class="stat__sub">Month</div>
             <svg class="stat__chart-wrap" width="220" height="60" viewBox="0 0 220 60" aria-hidden="true">
@@ -127,7 +137,7 @@
             <span class="stat__value">68.5%</span>
           </div>
 
-          <div class="glass stat stat--trend">
+          <div class="glass stat stat--trend stat--float-b">
             <div class="stat__label" style="font-size:11px;">Search Visibility</div>
             <div class="stat__big">+112.10%</div>
             <span class="stat__chart-base" aria-hidden="true"></span>
@@ -139,7 +149,7 @@
             </div>
           </div>
 
-          <div class="glass stat stat--leads">
+          <div class="glass stat stat--leads stat--float-c">
             <div class="stat__label" style="font-family:var(--font-display); font-size:14px;">Qualified Leads</div>
             <p class="stat__sub" style="color:rgba(255,255,255,0.6); font-family:var(--font-body); font-size:13px; margin-top:6px;">
               Growth in calls and enquiries from search
@@ -151,7 +161,7 @@
           <div class="orbit__caption">Visible on</div>
         </div>
 
-        <p class="hero__note">⚡ Limited free audits available this month</p>
+        <p class="hero__note" data-reveal="fade" style="--reveal-delay:440ms">⚡ Limited free audits available this month</p>
       </div>
     </section>
 
@@ -160,13 +170,13 @@
       <span class="glow glow--blue" style="left:-300px; top:200px; width:720px; height:320px;" aria-hidden="true"></span>
 
       <div class="container">
-        <header class="section__head">
+        <header class="section__head" data-reveal="fade">
           <span class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Services</span>
           <h2 id="services-title">Everything you need to dominate search</h2>
           <p class="lead">One strategy that supports both traditional rankings and AI-driven discovery.</p>
         </header>
 
-        <div class="service-row glass">
+        <div class="service-row glass" data-reveal="up" style="--reveal-delay:0ms">
           <div class="service-row__head">
             <span class="hex-tile" aria-hidden="true">⌖</span>
             <h3 class="service-row__title">Local SEO + Map Pack Domination</h3>
@@ -176,7 +186,7 @@
           <p class="service-row__copy">AI-ready content designed to win citations — how-tos, comparisons, listicles, and local service pages.</p>
         </div>
 
-        <div class="service-row glass">
+        <div class="service-row glass" data-reveal="up" style="--reveal-delay:80ms">
           <div class="service-row__head">
             <span class="hex-tile" aria-hidden="true">✦</span>
             <h3 class="service-row__title">AI-Generative Content Strategy</h3>
@@ -186,7 +196,7 @@
           <p class="service-row__copy">AI-ready content designed to win citations — how-tos, comparisons, listicles, and local service pages.</p>
         </div>
 
-        <div class="service-row glass">
+        <div class="service-row glass" data-reveal="up" style="--reveal-delay:160ms">
           <div class="service-row__head">
             <span class="hex-tile" aria-hidden="true">◬</span>
             <h3 class="service-row__title">Technical SEO + LLM Visibility Tracking</h3>
@@ -201,13 +211,13 @@
     <!-- =========================== How It Works =========================== -->
     <section class="section" id="how" aria-labelledby="how-title">
       <div class="container container--narrow">
-        <header class="section__head" style="margin-bottom:80px;">
+        <header class="section__head" data-reveal="fade" style="margin-bottom:80px;">
           <span class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>How It Works</span>
           <h2 id="how-title">Three steps to measurable growth</h2>
         </header>
 
-        <ol class="steps" role="list" style="list-style:none; margin:0; padding:0;">
-          <li class="step">
+        <ol class="steps" role="list" style="list-style:none; margin:0; padding:0;" data-reveal-stagger="100">
+          <li class="step" data-reveal="up">
             <div class="step__rail">
               <span class="step__icon" aria-hidden="true">▶</span>
               <span class="step__line" aria-hidden="true"></span>
@@ -220,7 +230,7 @@
             </div>
           </li>
 
-          <li class="step">
+          <li class="step" data-reveal="up">
             <div class="step__rail">
               <span class="step__icon" aria-hidden="true">◐</span>
               <span class="step__line" aria-hidden="true"></span>
@@ -233,7 +243,7 @@
             </div>
           </li>
 
-          <li class="step">
+          <li class="step" data-reveal="up">
             <div class="step__rail">
               <span class="step__icon" aria-hidden="true">□</span>
             </div>
@@ -253,49 +263,49 @@
       <span class="glow glow--blue" style="right:-300px; top:100px; width:720px; height:320px; opacity:0.48;" aria-hidden="true"></span>
 
       <div class="container">
-        <header class="section__head">
+        <header class="section__head" data-reveal="fade">
           <span class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Why Us</span>
           <h2 id="why-title">What sets us apart</h2>
           <p class="lead">Most agencies still focus on classic SEO only. We build for how people search now — Google, Maps, and AI answers. One strategy for both.</p>
         </header>
 
-        <div class="why-grid">
-          <article class="glass why-card">
+        <div class="why-grid" data-reveal-stagger="70">
+          <article class="glass why-card" data-reveal="up">
             <span class="hex-tile" aria-hidden="true">⌖</span>
             <h3 class="why-card__title">Visibility across Google + AI</h3>
             <p class="why-card__body">We optimise for the full search journey — map pack, organic results, and AI recommendations.</p>
           </article>
-          <article class="glass why-card">
+          <article class="glass why-card" data-reveal="up">
             <span class="hex-tile" aria-hidden="true">◐</span>
             <h3 class="why-card__title">Strategy + Implementation</h3>
             <p class="why-card__body">You get a plan, plus a team to execute it. Not advice-only.</p>
           </article>
-          <article class="glass why-card">
+          <article class="glass why-card" data-reveal="up">
             <span class="hex-tile" aria-hidden="true">▣</span>
             <h3 class="why-card__title">Local-First SEO</h3>
             <p class="why-card__body">Ranking where you actually do business, not vanity keywords outside your service area.</p>
           </article>
-          <article class="glass why-card">
+          <article class="glass why-card" data-reveal="up">
             <span class="hex-tile" aria-hidden="true">▤</span>
             <h3 class="why-card__title">Reporting You Can Understand</h3>
             <p class="why-card__body">Rankings, local visibility, and measurable improvements — tracked consistently.</p>
           </article>
-          <article class="glass why-card">
+          <article class="glass why-card" data-reveal="up">
             <span class="hex-tile" aria-hidden="true">✦</span>
             <h3 class="why-card__title">High-Intent Customers</h3>
             <p class="why-card__body">We target searches and prompts that lead to calls, bookings, and quotes.</p>
           </article>
-          <article class="glass why-card">
+          <article class="glass why-card" data-reveal="up">
             <span class="hex-tile" aria-hidden="true">◇</span>
             <h3 class="why-card__title">Better Trust Signals</h3>
             <p class="why-card__body">Consistent listings, stronger reviews, and credible content for Google and AI.</p>
           </article>
-          <article class="glass why-card">
+          <article class="glass why-card" data-reveal="up">
             <span class="hex-tile" aria-hidden="true">◈</span>
             <h3 class="why-card__title">Proximity AI SEO Engine</h3>
             <p class="why-card__body">SEO + GEO + AEO combined to improve classic rankings and AI citation likelihood.</p>
           </article>
-          <article class="glass why-card">
+          <article class="glass why-card" data-reveal="up">
             <span class="hex-tile" aria-hidden="true">⊙</span>
             <h3 class="why-card__title">Ongoing Tracking</h3>
             <p class="why-card__body">We monitor movement, spot opportunities, and make continuous improvements from real data.</p>
@@ -307,26 +317,26 @@
     <!-- =========================== Our Work =========================== -->
     <section class="section" aria-labelledby="work-title">
       <div class="container">
-        <header class="section__head">
+        <header class="section__head" data-reveal="fade">
           <span class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Our Work</span>
           <h2 id="work-title">Real improvements you can measure</h2>
           <p class="lead">Higher local visibility, stronger keyword positions, better conversion, and more qualified calls.</p>
         </header>
 
-        <div class="metrics">
-          <article class="glass metric">
+        <div class="metrics" data-reveal-stagger="90">
+          <article class="glass metric" data-reveal="up">
             <span class="hex-tile" aria-hidden="true">⌖</span>
             <div class="metric__stat">3x</div>
             <div class="metric__label">More Qualified Leads</div>
             <p class="metric__body">Local service businesses competing in crowded city markets</p>
           </article>
-          <article class="glass metric">
+          <article class="glass metric" data-reveal="up">
             <span class="hex-tile" aria-hidden="true">◎</span>
             <div class="metric__stat">68.5%</div>
             <div class="metric__label">Map Pack Visibility</div>
             <p class="metric__body">Multi-location brands building consistent rankings across regions</p>
           </article>
-          <article class="glass metric">
+          <article class="glass metric" data-reveal="up">
             <span class="hex-tile" aria-hidden="true">▣</span>
             <div class="metric__stat">2–6</div>
             <div class="metric__label">Weeks to First Results</div>
@@ -336,15 +346,33 @@
       </div>
     </section>
 
+    <!-- =========================== Parallax Statement =========================== -->
+    <section class="parallax-statement" aria-label="Vision statement">
+      <div class="parallax-statement__bg" aria-hidden="true">
+        <span class="parallax-statement__orb parallax-statement__orb--l"></span>
+        <span class="parallax-statement__orb parallax-statement__orb--r"></span>
+        <span class="parallax-statement__orb parallax-statement__orb--c"></span>
+      </div>
+      <div class="parallax-statement__fg" data-reveal="fade">
+        <span class="parallax-statement__rule" aria-hidden="true"></span>
+        <h2 class="parallax-statement__headline">
+          One strategy.<br>Three channels.<br>Measurable growth.
+        </h2>
+        <p class="parallax-statement__sub">
+          SEO + GEO + AEO working together — not as separate tactics.
+        </p>
+      </div>
+    </section>
+
     <!-- =========================== Testimonials =========================== -->
     <section class="section" aria-labelledby="testimonials-title">
       <div class="container" style="max-width:1080px;">
-        <header class="section__head" style="margin-bottom:50px;">
+        <header class="section__head" data-reveal="fade" style="margin-bottom:50px;">
           <span class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Testimonials</span>
           <h2 id="testimonials-title">Our clients</h2>
         </header>
 
-        <article class="glass testimonial" id="testimonial-card" data-index="0">
+        <article class="glass testimonial" data-reveal="up" id="testimonial-card" data-index="0">
           <div class="testimonial__avatar" aria-hidden="true"></div>
           <div>
             <blockquote class="testimonial__quote" id="testimonial-quote">
@@ -366,14 +394,14 @@
     <!-- =========================== FAQ =========================== -->
     <section class="section" id="faq" aria-labelledby="faq-title">
       <div class="container container--tight">
-        <header class="section__head" style="margin-bottom:50px;">
+        <header class="section__head" data-reveal="fade" style="margin-bottom:50px;">
           <span class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>FAQ</span>
           <h2 id="faq-title">Frequently asked questions</h2>
           <p class="lead">Everything you need to know before getting started.</p>
         </header>
 
-        <div class="faq">
-          <details class="faq__row" open>
+        <div class="faq" data-reveal-stagger="60">
+          <details class="faq__row" data-reveal="up" open>
             <summary class="faq__head">
               <span class="faq__q">How long does it take to see results?</span>
               <span class="faq__chev" aria-hidden="true">▾</span>
@@ -381,7 +409,7 @@
             <p class="faq__body">Most businesses see early movement in 2–6 weeks (technical fixes, profile improvements, better indexing). Competitive keyword gains and stronger local dominance typically take 2–4 months, depending on your market and starting point.</p>
           </details>
 
-          <details class="faq__row">
+          <details class="faq__row" data-reveal="up">
             <summary class="faq__head">
               <span class="faq__q">Is this only for local businesses?</span>
               <span class="faq__chev" aria-hidden="true">▾</span>
@@ -389,7 +417,7 @@
             <p class="faq__body">Local service businesses are our core focus, but the same SEO + GEO + AEO playbook works for multi-location brands and any business that needs to be found and recommended.</p>
           </details>
 
-          <details class="faq__row">
+          <details class="faq__row" data-reveal="up">
             <summary class="faq__head">
               <span class="faq__q">What do you need from me to get started?</span>
               <span class="faq__chev" aria-hidden="true">▾</span>
@@ -397,7 +425,7 @@
             <p class="faq__body">Access to your site CMS, Google Business Profile, and analytics — plus a 30-minute kick-off call. We handle the rest.</p>
           </details>
 
-          <details class="faq__row">
+          <details class="faq__row" data-reveal="up">
             <summary class="faq__head">
               <span class="faq__q">How do you help with AI platforms like ChatGPT and Perplexity?</span>
               <span class="faq__chev" aria-hidden="true">▾</span>
@@ -405,7 +433,7 @@
             <p class="faq__body">We track how your brand is mentioned across the major AI assistants and shape content, citations, and structured data so models pick you as the recommended option.</p>
           </details>
 
-          <details class="faq__row">
+          <details class="faq__row" data-reveal="up">
             <summary class="faq__head">
               <span class="faq__q">Do you manage Google Business Profile for me?</span>
               <span class="faq__chev" aria-hidden="true">▾</span>
@@ -413,7 +441,7 @@
             <p class="faq__body">Yes. Posts, photos, Q&amp;A, services, categories, and review replies are all part of the engagement.</p>
           </details>
 
-          <details class="faq__row">
+          <details class="faq__row" data-reveal="up">
             <summary class="faq__head">
               <span class="faq__q">Can you help if we have multiple locations?</span>
               <span class="faq__chev" aria-hidden="true">▾</span>
@@ -421,7 +449,7 @@
             <p class="faq__body">Yes — multi-location is a strength. We build location-specific pages, profiles, and tracking so each market gets attention.</p>
           </details>
 
-          <details class="faq__row">
+          <details class="faq__row" data-reveal="up">
             <summary class="faq__head">
               <span class="faq__q">What makes Proximity Ranking different from a typical SEO agency?</span>
               <span class="faq__chev" aria-hidden="true">▾</span>
@@ -434,7 +462,7 @@
 
     <!-- =========================== Final CTA =========================== -->
     <section class="final-cta" id="contact" aria-labelledby="final-cta-title">
-      <div class="final-cta__card">
+      <div class="final-cta__card" data-reveal="zoom">
         <span class="final-cta__glow" aria-hidden="true"></span>
         <span class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Free Visibility Audit</span>
         <h2 class="final-cta__title" id="final-cta-title">
@@ -467,36 +495,469 @@
     <small class="footer__copy">© Proximity Ranking. All rights reserved · 2026</small>
   </footer>
 
-  <!-- Inline JS for testimonial carousel (only progressive enhancement) -->
+  <!-- Scroll-to-top button -->
+  <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">↑</button>
+
+  <!-- Scroll reveal — IntersectionObserver -->
   <script>
     (function () {
+      'use strict';
+
+      // Assign staggered --reveal-delay to direct [data-reveal] children.
+      // data-reveal-stagger="N" sets the step in ms (default 80).
+      document.querySelectorAll('[data-reveal-stagger]').forEach(function (parent) {
+        var step = Number(parent.getAttribute('data-reveal-stagger')) || 80;
+        parent.querySelectorAll(':scope > [data-reveal]').forEach(function (el, i) {
+          el.style.setProperty('--reveal-delay', (i * step) + 'ms');
+        });
+      });
+
+      // Fallback for browsers without IntersectionObserver
+      if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('[data-reveal]').forEach(function (el) {
+          el.classList.add('is-visible', 'is-settled');
+        });
+        return;
+      }
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          // rAF prevents 1-frame invisible flash for above-fold elements
+          requestAnimationFrame(function () {
+            el.classList.add('is-visible');
+            el.addEventListener('transitionend', function () {
+              el.classList.add('is-settled');
+            }, { once: true });
+          });
+          io.unobserve(el);
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('[data-reveal]').forEach(function (el) {
+        io.observe(el);
+      });
+    }());
+  </script>
+
+  <!-- Orbit: rAF rotation + magnetic hover -->
+  <script>
+    (function () {
+      'use strict';
+
+      var orbit = document.querySelector('.orbit');
+      if (!orbit) return;
+
+      /* ── Constants ─────────────────────────────────────────────────── */
+      var REDUCED  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var CENTER   = 290;      // px — half of 580 px orbit
+      var RADIUS   = 290;      // px — ring radius
+      var FULL_ROT = 45000;    // ms per full rotation  (45 s)
+      var MAX_PULL = 18;       // px — max magnetic offset from orbit pos
+      var PULL     = 0.38;     // pull strength (reach factor)
+      var LERP_IN  = 0.09;     // lerp speed toward mouse  (per 16.67 ms)
+      var LERP_OUT = 0.055;    // lerp speed returning to orbit
+
+      /* ── Chip state ────────────────────────────────────────────────── */
+      var chipEls = orbit.querySelectorAll('.orbit__chip');
+      if (!chipEls.length) return;
+
+      var chips = Array.prototype.map.call(chipEls, function (el) {
+        var deg  = parseFloat(el.style.getPropertyValue('--angle')) || 0;
+        var base = deg * (Math.PI / 180);
+        var ix   = CENTER + RADIUS * Math.cos(base);
+        var iy   = CENTER + RADIUS * Math.sin(base);
+        return {
+          el      : el,
+          dot     : el.querySelector('.chip'),
+          base    : base,
+          hovered : false,
+          fx: ix, fy: iy,   // frozen orbit position at hover-start
+          mx: ix, my: iy,   // mouse position in orbit-space
+          vx: ix, vy: iy,   // visual (lerped) position
+        };
+      });
+
+      /* CSS flag: disables orbitSpin / orbitCounter animations */
+      orbit.classList.add('orbit--js-active');
+
+      /* Stamp initial positions synchronously — avoids 1-frame flash */
+      chips.forEach(function (c) {
+        c.el.style.transform =
+          'translate3d(' + c.vx.toFixed(2) + 'px,' + c.vy.toFixed(2) + 'px,0)';
+      });
+
+      /* Static positions only — respect user preference */
+      if (REDUCED) return;
+
+      /* ── Events ────────────────────────────────────────────────────── */
+      var rotorAngle = 0;
+      var prevNow    = 0;
+
+      chips.forEach(function (c) {
+        c.el.addEventListener('mouseenter', function () {
+          c.hovered = true;
+          /* Snapshot where on the orbit this chip is right now */
+          c.fx = CENTER + RADIUS * Math.cos(rotorAngle + c.base);
+          c.fy = CENTER + RADIUS * Math.sin(rotorAngle + c.base);
+          c.mx = c.vx;
+          c.my = c.vy;
+          if (c.dot) c.dot.classList.add('chip--hovered');
+        });
+
+        c.el.addEventListener('mouseleave', function () {
+          c.hovered = false;
+          if (c.dot) c.dot.classList.remove('chip--hovered');
+        });
+
+        /* Track mouse in orbit-relative coordinates */
+        c.el.addEventListener('mousemove', function (e) {
+          var r = orbit.getBoundingClientRect();
+          c.mx  = e.clientX - r.left;
+          c.my  = e.clientY - r.top;
+        });
+      });
+
+      /* ── rAF loop ───────────────────────────────────────────────────── */
+      function tick(now) {
+        var dt = prevNow ? Math.min(now - prevNow, 50) : 16.67;
+        prevNow = now;
+
+        rotorAngle += (2 * Math.PI / FULL_ROT) * dt;
+
+        for (var i = 0; i < chips.length; i++) {
+          var c     = chips[i];
+          var angle = rotorAngle + c.base;
+          var ox    = CENTER + RADIUS * Math.cos(angle);
+          var oy    = CENTER + RADIUS * Math.sin(angle);
+          var tx, ty, lr;
+
+          if (c.hovered) {
+            /* Magnetic pull: clamped to MAX_PULL from frozen orbit position */
+            var dx   = c.mx - c.fx;
+            var dy   = c.my - c.fy;
+            var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+            var f    = Math.min(dist * PULL, MAX_PULL) / dist;
+            tx = c.fx + dx * f;
+            ty = c.fy + dy * f;
+            lr = LERP_IN;
+          } else {
+            /* Return to the CURRENT orbit position (keeps orbiting — no reset) */
+            tx = ox;
+            ty = oy;
+            lr = LERP_OUT;
+          }
+
+          /* Frame-rate-independent lerp */
+          var alpha = 1 - Math.pow(1 - lr, dt / 16.67);
+          c.vx += (tx - c.vx) * alpha;
+          c.vy += (ty - c.vy) * alpha;
+
+          c.el.style.transform =
+            'translate3d(' + c.vx.toFixed(2) + 'px,' + c.vy.toFixed(2) + 'px,0)';
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    }());
+  </script>
+
+  <!-- Animated number counters: metric cards + orbit stat panels -->
+  <script>
+    (function () {
+      'use strict';
+
+      var DURATION = 1300; // ms
+      var REDUCED  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Parse a stat string: optional +/- prefix, number, optional % or x suffix.
+      // Returns null for non-animatable values (ranges like "2–6", bare words, etc.).
+      function parseStat(text) {
+        var t = text.trim();
+        var m = t.match(/^([+\-]?)(\d+(?:\.\d+)?)(x|%)?$/);
+        if (!m) return null;
+        var numStr   = m[2];
+        var dotIdx   = numStr.indexOf('.');
+        var decimals = dotIdx === -1 ? 0 : numStr.length - dotIdx - 1;
+        return {
+          prefix  : m[1],
+          target  : parseFloat(numStr),
+          decimals: decimals,
+          suffix  : m[3] || '',
+          original: t,
+        };
+      }
+
+      function fmt(p, n) {
+        return p.prefix + n.toFixed(p.decimals) + p.suffix;
+      }
+
+      function animateStat(el, parsed) {
+        if (REDUCED) return; // prefers-reduced-motion: keep final value visible
+        el.textContent = fmt(parsed, 0);
+        var start = null;
+        function step(now) {
+          if (!start) start = now;
+          var t     = Math.min((now - start) / DURATION, 1);
+          var eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+          el.textContent = fmt(parsed, eased * parsed.target);
+          if (t < 1) {
+            requestAnimationFrame(step);
+          } else {
+            el.textContent = parsed.original; // restore exact original string
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      var selectors = '.metric__stat, .stat__value, .stat__big, .stat__chart-tag';
+      var targets   = document.querySelectorAll(selectors);
+      if (!targets.length || !('IntersectionObserver' in window)) return;
+
+      var seen = new WeakSet();
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          if (seen.has(el)) return;
+          seen.add(el);
+          io.unobserve(el);
+          var parsed = parseStat(el.textContent);
+          if (parsed) animateStat(el, parsed);
+        });
+      }, { threshold: 0.5 });
+
+      Array.prototype.forEach.call(targets, function (el) {
+        if (parseStat(el.textContent)) io.observe(el);
+      });
+    }());
+  </script>
+
+  <!-- Testimonial carousel with auto-play + cross-fade -->
+  <script>
+    (function () {
+      'use strict';
       var TESTIMONIALS = [
         { quote: '"Their team handled the details — GBP updates, listings, technical fixes — and kept us in the loop."', name: "Chris D.", role: "Marketing Director" },
         { quote: '"Increasy has been a game-changer for our team. We save hours each week and the collaboration tools are fantastic."', name: "Mike T.", role: "Project Manager" },
         { quote: '"Since adopting Proximity, I\'ve seen a big boost in qualified calls. Map pack visibility is night and day."', name: "David K.", role: "Sales Executive" }
       ];
-      var card  = document.getElementById("testimonial-card");
-      var quote = document.getElementById("testimonial-quote");
-      var name  = document.getElementById("testimonial-name");
-      var role  = document.getElementById("testimonial-role");
+      var card  = document.getElementById('testimonial-card');
+      var quote = document.getElementById('testimonial-quote');
+      var name  = document.getElementById('testimonial-name');
+      var role  = document.getElementById('testimonial-role');
       if (!card) return;
-      var i = 0;
+
+      var i           = 0;
+      var busy        = false;
+      var FADE_MS     = 280;
+      var AUTO_MS     = 5000;
+      var timer       = null;
+      var REDUCED     = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
       function render() {
         var t = TESTIMONIALS[i];
         quote.textContent = t.quote;
         name.textContent  = t.name;
         role.textContent  = t.role;
       }
-      card.addEventListener("click", function (e) {
-        var trigger = e.target.closest("[data-testimonial]");
+
+      function advance(dir) {
+        if (busy) return;
+        busy = true;
+
+        if (REDUCED) {
+          i = dir === 'prev'
+            ? (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length
+            : (i + 1) % TESTIMONIALS.length;
+          render();
+          busy = false;
+          return;
+        }
+
+        card.classList.add('testimonial--fading');
+        setTimeout(function () {
+          i = dir === 'prev'
+            ? (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length
+            : (i + 1) % TESTIMONIALS.length;
+          render();
+          void card.offsetWidth; // force reflow so remove-class restarts transition
+          card.classList.remove('testimonial--fading');
+          setTimeout(function () { busy = false; }, FADE_MS);
+        }, FADE_MS);
+      }
+
+      function startTimer() { timer = setInterval(function () { advance('next'); }, AUTO_MS); }
+      function stopTimer()  { clearInterval(timer); }
+
+      // Manual nav
+      card.addEventListener('click', function (e) {
+        var trigger = e.target.closest('[data-testimonial]');
         if (!trigger) return;
-        var dir = trigger.getAttribute("data-testimonial");
-        i = dir === "next"
-          ? (i + 1) % TESTIMONIALS.length
-          : (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length;
-        render();
+        stopTimer();
+        advance(trigger.getAttribute('data-testimonial'));
+        startTimer();
       });
-    })();
+
+      // Pause on hover
+      card.addEventListener('mouseenter', stopTimer);
+      card.addEventListener('mouseleave', startTimer);
+
+      startTimer();
+    }());
+  </script>
+
+  <!-- Blob parallax: mouse-driven lerp, disabled on touch/reduced-motion -->
+  <script>
+    (function () {
+      'use strict';
+
+      var blobs = Array.prototype.map.call(
+        document.querySelectorAll('.bg-blob[data-speed]'),
+        function (el) {
+          return {
+            el   : el,
+            speed: parseFloat(el.getAttribute('data-speed')) || 0.3,
+            tx   : 0, ty: 0,
+          };
+        }
+      );
+
+      if (!blobs.length) return;
+
+      // Disable on touch/coarse-pointer devices and when motion is reduced
+      if (
+        window.matchMedia('(pointer: coarse)').matches ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ) return;
+
+      var MAX  = 30;   // max parallax travel in px
+      var LERP = 0.04; // smoothing factor per 16.67 ms frame
+      var mx   = 0, my = 0, prev = 0;
+
+      window.addEventListener('mousemove', function (e) {
+        // Normalise to –1 … +1 from viewport centre
+        mx = (e.clientX / window.innerWidth  - 0.5) * 2;
+        my = (e.clientY / window.innerHeight - 0.5) * 2;
+      }, { passive: true });
+
+      function tick(now) {
+        var dt    = prev ? Math.min(now - prev, 50) : 16.67;
+        prev = now;
+        var alpha = 1 - Math.pow(1 - LERP, dt / 16.67); // frame-rate-independent lerp
+
+        for (var i = 0; i < blobs.length; i++) {
+          var b   = blobs[i];
+          var ttx = mx * MAX * b.speed;
+          var tty = my * MAX * b.speed;
+          b.tx += (ttx - b.tx) * alpha;
+          b.ty += (tty - b.ty) * alpha;
+          b.el.style.setProperty('--tx', b.tx.toFixed(2) + 'px');
+          b.el.style.setProperty('--ty', b.ty.toFixed(2) + 'px');
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }());
+  </script>
+
+  <!-- UI enhancements: hero words, smooth scroll, scroll-top, parallax section -->
+  <script>
+    (function () {
+      'use strict';
+
+      var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ── 1. Hero headline: wrap words in spans for per-word glow ─────── */
+      var h1 = document.querySelector('.hero__title');
+      if (h1) {
+        Array.prototype.forEach.call(Array.prototype.slice.call(h1.childNodes), function (node) {
+          if (node.nodeType !== 3) return; // keep <br> and other elements
+          var raw   = node.textContent;
+          // Split on ASCII spaces only;   (non-breaking space) stays with its word
+          var parts = raw.split(' ');
+          var frag  = document.createDocumentFragment();
+          var first = true;
+          parts.forEach(function (part) {
+            // Strip newlines/tabs but keep non-breaking spaces
+            var word = part.replace(/[\n\r\t]+/g, '');
+            if (!word) return;
+            if (!first) frag.appendChild(document.createTextNode(' '));
+            var span = document.createElement('span');
+            span.className   = 'hero__word';
+            span.textContent = word;
+            frag.appendChild(span);
+            first = false;
+          });
+          // Preserve a single trailing space when original text ended with spaces (before <br>)
+          if (/\s$/.test(raw) && !first) frag.appendChild(document.createTextNode(' '));
+          h1.replaceChild(frag, node);
+        });
+      }
+
+      /* ── 2. Smooth anchor scrolling ─────────────────────────────────── */
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href^="#"]');
+        if (!link) return;
+        var hash = link.getAttribute('href');
+        var id   = hash.slice(1);
+        e.preventDefault();
+        if (!id) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        var target = document.getElementById(id);
+        if (!target) return;
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      /* ── 3. Scroll-to-top button ─────────────────────────────────────── */
+      var scrollBtn = document.getElementById('scroll-top');
+      if (scrollBtn) {
+        window.addEventListener('scroll', function () {
+          scrollBtn.classList.toggle('is-visible', window.scrollY > 300);
+        }, { passive: true });
+        scrollBtn.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* ── 4. Parallax statement section ─────────────────────────────── */
+      var psBg = document.querySelector('.parallax-statement__bg');
+      if (psBg && !REDUCED) {
+        var psSection = psBg.closest('.parallax-statement');
+        var prevY     = 0;
+        var curY      = 0;
+        var ticking   = false;
+
+        window.addEventListener('scroll', function () {
+          prevY   = window.scrollY;
+          if (!ticking) {
+            requestAnimationFrame(function () {
+              var rect   = psSection.getBoundingClientRect();
+              var vh     = window.innerHeight;
+              var relY   = rect.top + rect.height / 2 - vh / 2;
+              curY       = relY * 0.35; // 35 % parallax factor
+              psBg.style.transform = 'translate3d(0,' + curY.toFixed(2) + 'px,0)';
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+
+        // Set initial position
+        (function () {
+          var rect = psSection.getBoundingClientRect();
+          var vh   = window.innerHeight;
+          var relY = rect.top + rect.height / 2 - vh / 2;
+          psBg.style.transform = 'translate3d(0,' + (relY * 0.35).toFixed(2) + 'px,0)';
+        }());
+      }
+
+    }());
   </script>
 </body>
 </html>

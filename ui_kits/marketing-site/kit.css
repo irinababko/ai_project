@@ -241,3 +241,38 @@ body {
 /* utility */
 .relative { position: relative; }
 .z1 { z-index: 1; }
+
+/* ---- Hero Orbit Animations ---- */
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes orbit-spin-reverse {
+  to { transform: rotate(-360deg); }
+}
+@keyframes card-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-7px); }
+}
+
+/* Rotating ring wrapper — same footprint as HeroOrbit */
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  animation: orbit-spin 48s linear infinite;
+  will-change: transform;
+}
+
+/* Counter-rotate each chip so label stays upright */
+.orbit-ring .ai-chip {
+  animation: orbit-spin-reverse 48s linear infinite;
+  will-change: transform;
+}
+
+/* Subtle float on inner stat cards */
+.float-card {
+  position: absolute;
+  animation: card-float 5s ease-in-out infinite;
+  will-change: transform;
+}
+.float-card--2 { animation-delay: -1.8s; }
+.float-card--3 { animation-delay: -3.5s; }

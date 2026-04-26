@@ -42,13 +42,17 @@
         <span class="logo__mark" aria-hidden="true"></span>
         Proximity
       </a>
-      <ul class="nav__links">
+      <ul class="nav__links" id="nav-links">
         <li><a href="#services">Services</a></li>
         <li><a href="#how">How It Works</a></li>
         <li><a href="#why">Why Us</a></li>
         <li><a href="#faq">FAQ</a></li>
+        <li class="nav__links-cta"><a href="#contact">book a call</a></li>
       </ul>
-      <a class="btn btn--primary" href="#contact">book a call</a>
+      <a class="btn btn--primary nav__cta-desktop" href="#contact">book a call</a>
+      <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </nav>
   </header>
 
@@ -84,7 +88,7 @@
           <span class="orbit__ring orbit__ring--outer" aria-hidden="true"></span>
           <span class="orbit__ring orbit__ring--inner" aria-hidden="true"></span>
           <span class="orbit__glow" aria-hidden="true"></span>
-          <span class="orbit__globe" aria-hidden="true"></span>
+          <canvas id="orbit-siri" class="orbit__globe" width="440" height="440" aria-hidden="true"></canvas>
 
           <!-- AI platform chips — wrapped in rotor for orbit animation -->
           <div class="orbit__rotor">
@@ -131,8 +135,16 @@
             <div class="stat__label">Local Ranking Growth</div>
             <div class="stat__sub">Month</div>
             <svg class="stat__chart-wrap" width="220" height="60" viewBox="0 0 220 60" aria-hidden="true">
-              <path d="M 0 50 Q 40 30 70 38 T 130 22 T 220 12" fill="none" stroke="#fff" stroke-width="0.7"/>
-              <circle cx="190" cy="14" r="6" fill="#5e42fc" stroke="#fff" stroke-width="2"/>
+              <defs>
+                <linearGradient id="rank-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.22)"/>
+                  <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                </linearGradient>
+              </defs>
+              <path d="M 0 54 C 55 48,88 36,120 29 S 168 13,208 11 L 208 60 L 0 60 Z" fill="url(#rank-fill)"/>
+              <path d="M 0 54 C 55 48,88 36,120 29 S 168 13,208 11" fill="none" stroke="rgba(255,255,255,0.80)" stroke-width="1.2" stroke-linecap="round"/>
+              <circle cx="208" cy="11" r="8" fill="rgba(94,66,252,0.35)"/>
+              <circle cx="208" cy="11" r="4.5" fill="#5e42fc" stroke="#fff" stroke-width="1.8"/>
             </svg>
             <span class="stat__value">68.5%</span>
           </div>
@@ -353,14 +365,21 @@
         <span class="parallax-statement__orb parallax-statement__orb--r"></span>
         <span class="parallax-statement__orb parallax-statement__orb--c"></span>
       </div>
-      <div class="parallax-statement__fg" data-reveal="fade">
-        <span class="parallax-statement__rule" aria-hidden="true"></span>
-        <h2 class="parallax-statement__headline">
-          One strategy.<br>Three channels.<br>Measurable growth.
-        </h2>
-        <p class="parallax-statement__sub">
-          SEO + GEO + AEO working together — not as separate tactics.
-        </p>
+      <div class="parallax-statement__inner">
+        <div class="parallax-statement__visual" data-reveal="zoom">
+          <div class="ps-circle">
+            <canvas id="ps-siri" class="ps-circle__canvas" aria-hidden="true"></canvas>
+          </div>
+        </div>
+        <div class="parallax-statement__fg" data-reveal="fade" style="--reveal-delay:150ms">
+          <span class="parallax-statement__rule" aria-hidden="true"></span>
+          <h2 class="parallax-statement__headline">
+            One strategy.<br>Three channels.<br>Measurable growth.
+          </h2>
+          <p class="parallax-statement__sub">
+            SEO + GEO + AEO working together — not as separate tactics.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -957,6 +976,306 @@
         }());
       }
 
+      /* ── 5. Burger menu ──────────────────────────────────────────────── */
+      var burger   = document.getElementById('nav-burger');
+      var navLinks = document.getElementById('nav-links');
+      var navBar   = burger && burger.closest('.nav__bar');
+
+      if (burger && navLinks && navBar) {
+        function closeNav() {
+          navBar.classList.remove('nav--open');
+          navLinks.classList.remove('is-open');
+          burger.setAttribute('aria-expanded', 'false');
+        }
+        function openNav() {
+          navBar.classList.add('nav--open');
+          navLinks.classList.add('is-open');
+          burger.setAttribute('aria-expanded', 'true');
+        }
+
+        burger.addEventListener('click', function () {
+          navBar.classList.contains('nav--open') ? closeNav() : openNav();
+        });
+
+        // Close when any nav link is tapped
+        navLinks.addEventListener('click', function (e) {
+          if (e.target.tagName === 'A') closeNav();
+        });
+
+        // Close when clicking outside the nav bar
+        document.addEventListener('click', function (e) {
+          if (!navBar.contains(e.target)) closeNav();
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') closeNav();
+        });
+      }
+
+    }());
+  </script>
+
+  <!-- Siri-like parallax-statement circle -->
+  <script>
+    (function () {
+      var canvas  = document.getElementById('ps-siri');
+      if (!canvas) return;
+      var ctx     = canvas.getContext('2d');
+      var _W = 0, _H = 0;
+
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var mobile  = window.matchMedia('(pointer: coarse)').matches;
+      var STEPS   = mobile ? 20 : 38;
+
+      function resize() {
+        var W = canvas.offsetWidth, H = canvas.offsetHeight;
+        if (!W || !H) return;
+        var d = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width  = W * d;
+        canvas.height = H * d;
+        _W = W; _H = H;
+        ctx.setTransform(d, 0, 0, d, 0, 0);
+      }
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+
+      var ribbons = [
+        { c1: 'rgba(0,220,255,',   c2: 'rgba(0,110,255,',   freq: 0.55, amp: 0.17, phase: 0.00, spd: 0.22, tilt:  0.10 },
+        { c1: 'rgba(80,55,255,',   c2: 'rgba(150,35,225,',  freq: 0.70, amp: 0.13, phase: 2.09, spd: 0.30, tilt: -0.09 },
+        { c1: 'rgba(215,38,242,',  c2: 'rgba(95,0,198,',    freq: 0.48, amp: 0.20, phase: 4.32, spd: 0.18, tilt:  0.07 },
+        { c1: 'rgba(255,70,172,',  c2: 'rgba(60,148,255,',  freq: 0.86, amp: 0.11, phase: 1.20, spd: 0.34, tilt: -0.12 },
+        { c1: 'rgba(0,188,255,',   c2: 'rgba(32,68,205,',   freq: 0.62, amp: 0.15, phase: 3.70, spd: 0.26, tilt:  0.08 },
+        { c1: 'rgba(118,58,255,',  c2: 'rgba(0,178,228,',   freq: 0.78, amp: 0.12, phase: 5.50, spd: 0.20, tilt: -0.05 }
+      ];
+
+      var pxScroll = 0;
+      var section  = canvas.closest('.parallax-statement');
+
+      if (!reduced && section) {
+        window.addEventListener('scroll', function () {
+          var rect = section.getBoundingClientRect();
+          var diff = (rect.top + rect.height * 0.5) - window.innerHeight * 0.5;
+          pxScroll = diff * 0.05;
+        }, { passive: true });
+      }
+
+      function buildPoints(rb, t) {
+        var W = _W, H = _H;
+        var tOff = t * rb.spd + rb.phase;
+        var amp  = H * rb.amp;
+        var midY = H * 0.5 + Math.sin(rb.phase * 0.7) * H * 0.22 + pxScroll;
+        var pts  = [];
+        for (var s = 0; s <= STEPS; s++) {
+          var frac = s / STEPS;
+          var base = midY + rb.tilt * (frac - 0.5) * W;
+          pts.push(
+            frac * W,
+            base
+              + Math.sin(frac * Math.PI * rb.freq * 2 + tOff) * amp
+              + Math.sin(frac * Math.PI * rb.freq * 3.1 + tOff * 1.35) * amp * 0.38
+              + Math.cos(frac * Math.PI * 0.75 + tOff * 0.55) * amp * 0.22
+          );
+        }
+        return pts;
+      }
+
+      function strokeSpline(pts) {
+        var n = pts.length / 2;
+        ctx.beginPath();
+        ctx.moveTo(pts[0], pts[1]);
+        for (var j = 1; j < n - 1; j++) {
+          var mx = (pts[j*2] + pts[(j+1)*2]) / 2;
+          var my = (pts[j*2+1] + pts[(j+1)*2+1]) / 2;
+          ctx.quadraticCurveTo(pts[j*2], pts[j*2+1], mx, my);
+        }
+        ctx.lineTo(pts[(n-1)*2], pts[(n-1)*2+1]);
+        ctx.stroke();
+      }
+
+      function draw(t) {
+        var W = _W, H = _H;
+        if (!W || !H) return;
+        var cx = W / 2, cy = H / 2;
+
+        ctx.clearRect(0, 0, W, H);
+
+        /* dark base — CSS border-radius clips to circle */
+        ctx.fillStyle = 'rgba(4,3,22,0.90)';
+        ctx.fillRect(0, 0, W, H);
+
+        /* central violet glow */
+        var bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, W * 0.72);
+        bg.addColorStop(0,   'rgba(60,28,120,0.52)');
+        bg.addColorStop(0.5, 'rgba(28,8,72,0.28)');
+        bg.addColorStop(1,   'rgba(0,0,0,0)');
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        /* ribbons */
+        ctx.globalCompositeOperation = 'screen';
+        ctx.lineCap = 'round';
+
+        for (var i = 0; i < ribbons.length; i++) {
+          var rb   = ribbons[i];
+          var pts  = buildPoints(rb, t);
+          var grad = ctx.createLinearGradient(0, 0, W, 0);
+          grad.addColorStop(0,    rb.c1 + '0)');
+          grad.addColorStop(0.15, rb.c1 + '0.65)');
+          grad.addColorStop(0.50, rb.c2 + '0.88)');
+          grad.addColorStop(0.85, rb.c1 + '0.65)');
+          grad.addColorStop(1,    rb.c1 + '0)');
+
+          ctx.strokeStyle = grad;
+          ctx.lineWidth   = mobile ? 22 : 26;
+          ctx.globalAlpha = mobile ? 0.14 : 0.18;
+          strokeSpline(pts);
+
+          ctx.lineWidth   = mobile ? 2.0 : 2.5;
+          ctx.globalAlpha = mobile ? 0.55 : 0.72;
+          strokeSpline(pts);
+        }
+
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 1;
+
+        /* top specular highlight */
+        var spec = ctx.createRadialGradient(cx, cy - W * 0.28, 0, cx, cy - W * 0.28, W * 0.52);
+        spec.addColorStop(0, 'rgba(255,255,255,0.09)');
+        spec.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = spec;
+        ctx.fillRect(0, 0, W, H);
+      }
+
+      if (reduced) { draw(0); return; }
+
+      var t0 = null;
+      function loop(ts) {
+        if (!t0) t0 = ts;
+        draw((ts - t0) * 0.001);
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+    }());
+  </script>
+
+  <!-- Siri-like orbit globe canvas -->
+  <script>
+    (function () {
+      var canvas = document.getElementById('orbit-siri');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var W = 440, H = 440, cx = W / 2, cy = H / 2, R = W / 2;
+
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width  = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.scale(dpr, dpr);
+
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var mobile  = window.matchMedia('(pointer: coarse)').matches;
+      var STEPS   = mobile ? 20 : 40;
+
+      var ribbons = [
+        { c1: 'rgba(0,230,255,',   c2: 'rgba(0,120,255,',   freq: 0.80, amp: 52, phase: 0.00, spd: 0.38 },
+        { c1: 'rgba(80,60,255,',   c2: 'rgba(160,40,220,',  freq: 1.10, amp: 38, phase: 2.09, spd: 0.52 },
+        { c1: 'rgba(220,40,240,',  c2: 'rgba(100,0,200,',   freq: 0.65, amp: 62, phase: 4.32, spd: 0.33 },
+        { c1: 'rgba(255,80,175,',  c2: 'rgba(80,160,255,',  freq: 1.30, amp: 34, phase: 1.20, spd: 0.58 },
+        { c1: 'rgba(0,190,255,',   c2: 'rgba(40,80,200,',   freq: 0.90, amp: 48, phase: 3.70, spd: 0.44 }
+      ];
+
+      function buildPoints(rb, t) {
+        var pts = [], tOff = t * rb.spd + rb.phase;
+        for (var s = 0; s <= STEPS; s++) {
+          var frac = s / STEPS;
+          pts.push(
+            frac * W,
+            cy
+            + Math.sin(frac * Math.PI * rb.freq * 2 + tOff) * rb.amp
+            + Math.sin(frac * Math.PI * rb.freq * 3.3 + tOff * 1.4) * rb.amp * 0.35
+            + Math.cos(frac * Math.PI * 0.7 + tOff * 0.6) * rb.amp * 0.2
+          );
+        }
+        return pts;
+      }
+
+      function strokeSpline(pts) {
+        var n = pts.length / 2;
+        ctx.beginPath();
+        ctx.moveTo(pts[0], pts[1]);
+        for (var j = 1; j < n - 1; j++) {
+          var mx = (pts[j * 2] + pts[(j + 1) * 2]) / 2;
+          var my = (pts[j * 2 + 1] + pts[(j + 1) * 2 + 1]) / 2;
+          ctx.quadraticCurveTo(pts[j * 2], pts[j * 2 + 1], mx, my);
+        }
+        ctx.lineTo(pts[(n - 1) * 2], pts[(n - 1) * 2 + 1]);
+        ctx.stroke();
+      }
+
+      function draw(t) {
+        ctx.clearRect(0, 0, W, H);
+        ctx.save();
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, R - 1, 0, Math.PI * 2);
+        ctx.clip();
+
+        ctx.fillStyle = 'rgba(4,3,22,0.92)';
+        ctx.fillRect(0, 0, W, H);
+
+        var bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 0.72);
+        bg.addColorStop(0,   'rgba(65,30,130,0.55)');
+        bg.addColorStop(0.5, 'rgba(30,10,80,0.30)');
+        bg.addColorStop(1,   'rgba(0,0,0,0)');
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        ctx.globalCompositeOperation = 'screen';
+        ctx.lineCap = 'round';
+
+        for (var i = 0; i < ribbons.length; i++) {
+          var rb   = ribbons[i];
+          var pts  = buildPoints(rb, t);
+          var grad = ctx.createLinearGradient(0, 0, W, 0);
+          grad.addColorStop(0,    rb.c1 + '0)');
+          grad.addColorStop(0.18, rb.c1 + '0.65)');
+          grad.addColorStop(0.50, rb.c2 + '0.90)');
+          grad.addColorStop(0.82, rb.c1 + '0.65)');
+          grad.addColorStop(1,    rb.c1 + '0)');
+
+          ctx.strokeStyle = grad;
+          ctx.lineWidth   = 24;
+          ctx.globalAlpha = 0.16;
+          strokeSpline(pts);
+
+          ctx.lineWidth   = 2.5;
+          ctx.globalAlpha = 0.78;
+          strokeSpline(pts);
+        }
+
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 1;
+
+        var spec = ctx.createRadialGradient(cx, cy - R * 0.28, 0, cx, cy - R * 0.28, R * 0.52);
+        spec.addColorStop(0, 'rgba(255,255,255,0.10)');
+        spec.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = spec;
+        ctx.fillRect(0, 0, W, H);
+
+        ctx.restore();
+      }
+
+      if (reduced) { draw(0); return; }
+
+      var t0 = null;
+      function loop(ts) {
+        if (!t0) t0 = ts;
+        draw((ts - t0) * 0.001);
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
     }());
   </script>
 </body>

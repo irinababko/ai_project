@@ -433,8 +433,7 @@ h3 {
   position: absolute;
   inset: 70px;
   border-radius: 50%;
-  background: url("../assets/images/orb-globe.jpg") center / cover no-repeat;
-  opacity: 0.76;
+  overflow: hidden;
 }
 .orbit__glow {
   position: absolute;
@@ -627,7 +626,7 @@ h3 {
 .stat__chart-dot {
   position: absolute;
   left: 55%;
-  bottom: 60px;
+  bottom: 66px;
   width: 9px;
   height: 9px;
   border-radius: 50%;
@@ -636,7 +635,7 @@ h3 {
 }
 .stat__chart-tag {
   position: absolute;
-  left: 50%;
+  left: 55%;
   bottom: 78px;
   transform: translateX(-50%);
   font-family: var(--font-data);
@@ -665,7 +664,7 @@ h3 {
 .stat__bar-fill {
   height: 100%;
   border-radius: 9px;
-  background: rgb(90, 65, 234);
+  background: linear-gradient(90deg, rgb(78, 47, 255) 0%, rgb(120, 90, 255) 60%, rgb(160, 130, 255) 100%);
 }
 
 // Section head
@@ -1332,10 +1331,6 @@ h3 {
 // ===== Parallax statement section =====
 .parallax-statement {
   position: relative;
-  min-height: 440px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
@@ -1378,12 +1373,54 @@ h3 {
   filter: blur(56px);
 }
 
-.parallax-statement__fg {
+// Two-column layout wrapper
+.parallax-statement__inner {
   position: relative;
   z-index: 1;
-  text-align: center;
-  padding: 80px 24px;
-  max-width: 700px;
+  display: flex;
+  align-items: center;
+  gap: 72px;
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 80px 48px;
+}
+
+.parallax-statement__visual {
+  flex: 0 0 auto;
+}
+
+// Circular canvas shell
+.ps-circle {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow:
+    0 0 0 18px rgba(255, 255, 255, 0.028),
+    0 0 0 36px rgba(255, 255, 255, 0.008),
+    0 0 80px rgba(78, 47, 255, 0.45),
+    0 40px 80px rgba(0, 0, 0, 0.5);
+}
+
+.ps-circle__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+// Text column
+.parallax-statement__fg {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+  text-align: left;
+  padding: 0;
 }
 
 .parallax-statement__rule {
@@ -1391,7 +1428,7 @@ h3 {
   width: 56px;
   height: 2px;
   background: linear-gradient(90deg, var(--brand-blue), var(--brand-violet));
-  margin: 0 auto 32px;
+  margin: 0 0 32px;
   border-radius: 2px;
 }
 
@@ -1408,11 +1445,248 @@ h3 {
 .parallax-statement__sub {
   font-size: var(--fs-lead);
   color: var(--fg-mute);
-  margin: 0 auto;
-  max-width: 480px;
+  margin: 0;
+  max-width: 440px;
   line-height: 1.5;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .parallax-statement__bg { will-change: auto; }
+}
+
+
+// =============================================================================
+// Responsive — nav burger, tablet (≤1024), mobile (≤768), small (≤480)
+// =============================================================================
+
+// ── Global tap-size floor ──────────────────────────────────────────────────
+.btn { min-height: 44px; }
+
+// ── Burger button — hidden on desktop, shown at ≤880px ────────────────────
+.nav__burger {
+  display: none;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  cursor: pointer;
+  padding: 0;
+
+  span {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: #fff;
+    border-radius: 2px;
+    pointer-events: none;
+    transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
+                opacity   200ms ease;
+  }
+}
+
+// Hamburger → X when open
+.nav--open .nav__burger {
+  span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+}
+
+// Mobile CTA inside dropdown — hidden everywhere by default
+.nav__links-cta { display: none; }
+
+// ── ≤880px — hide desktop nav, show burger ────────────────────────────────
+@media (max-width: 880px) {
+  .nav__bar {
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+  }
+  .nav--open .nav__bar { border-radius: 20px 20px 16px 16px; }
+
+  .nav__cta-desktop { display: none; } // hide desktop CTA button
+  .nav__burger      { display: flex; } // show burger
+
+  // Dropdown — slide in when .is-open toggled by JS
+  .nav__links.is-open {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    order: 3;
+    padding: 8px 0 4px;
+    margin-top: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    gap: 2px;
+    animation: navDrop 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+
+    li { list-style: none; }
+
+    a {
+      display: block;
+      padding: 11px 6px;
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 17px;
+      color: var(--fg-2);
+      transition: color 150ms ease;
+
+      &:hover { color: #fff; }
+    }
+
+    // Mobile CTA row
+    .nav__links-cta {
+      display: block;
+      margin-top: 10px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+      a {
+        display: inline-block;
+        padding: 12px 24px;
+        border-radius: 10px;
+        background: rgba(78, 47, 255, 0.4);
+        border: 1.28px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(18px);
+        font-size: 16px;
+        font-weight: 500;
+        color: #fff;
+        min-height: 44px;
+        line-height: 1;
+      }
+    }
+  }
+
+  @keyframes navDrop {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+// ── ≤1024px — Tablet ──────────────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .service-row { padding: 28px; }
+  .why-card    { padding: 24px; }
+  .step        { gap: 32px; }
+}
+
+// ── ≤768px — Mobile ───────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  // Sections
+  .section       { padding: 72px 20px; }
+  .section__head { margin-bottom: 44px; }
+
+  // Hero
+  .hero         { padding: 48px 20px 56px; }
+  .hero__title  { margin-top: 20px; }
+  .hero__lead   { margin: 20px auto 28px; }
+  .hero__ctas   { gap: 12px; }
+  .hero__note   { font-size: 16px; }
+
+  // Service rows
+  .service-row       { padding: 22px 20px; }
+  .service-row__title { font-size: 21px; }
+
+  // Metric cards — release fixed height so content breathes
+  .metric            { height: auto; min-height: 240px; }
+  .metric__stat      { margin-top: 28px; }
+  .metric__body      { margin-top: 18px; }
+
+  // FAQ
+  .faq__head { padding: 16px 20px; }
+  .faq__q    { font-size: 17px; }
+  .faq__body { padding: 0 20px 20px; font-size: 16px; }
+
+  // Final CTA
+  .final-cta         { padding: 48px 16px 72px; }
+  .final-cta__ctas   { flex-direction: column; align-items: center; width: 100%; }
+  .final-cta__ctas .btn { width: 100%; max-width: 340px; }
+
+  // Footer (supplement the 720px rule above)
+  .footer       { padding: 24px 20px; margin: 0 12px 24px; }
+
+  // Parallax statement — stack to single column
+  .parallax-statement__inner  { flex-direction: column; align-items: center; gap: 48px; padding: 64px 24px; }
+  .parallax-statement__fg     { text-align: center; }
+  .parallax-statement__rule   { margin: 0 auto 32px; }
+  .parallax-statement__sub    { margin: 0 auto; }
+  .ps-circle                  { width: 340px; height: 340px; }
+
+  // Scroll-top button
+  .scroll-top { bottom: 20px; right: 20px; }
+}
+
+// ── ≤480px — Small mobile ─────────────────────────────────────────────────
+@media (max-width: 480px) {
+  // Sections
+  .section       { padding: 52px 16px; }
+  .section__head { margin-bottom: 32px; gap: 10px; }
+
+  // Hero
+  .hero        { padding: 36px 16px 44px; }
+  .hero__lead  { font-size: 17px; }
+  .hero__ctas  {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 10px;
+  }
+  .hero__ctas .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  // framed button inner span also needs to fill
+  .hero__ctas .btn--framed .btn__inner {
+    flex: 1;
+    justify-content: center;
+  }
+
+  // Orbit — further scale down on very small screens
+  .orbit { transform: scale(0.60); transform-origin: top center; height: 400px; }
+
+  // Steps
+  .step             { grid-template-columns: 60px 1fr; gap: 16px; }
+  .step__icon       { width: 60px; height: 60px; border-radius: 12px; font-size: 18px; }
+  .step__body       { padding-bottom: 44px; }
+  .step__short      { font-size: 17px; }
+  .step__long       { font-size: 15px; }
+
+  // Why cards
+  .why-card       { padding: 20px; }
+  .why-card__title { font-size: 20px; margin-top: 14px; }
+
+  // Testimonial
+  .testimonial            { padding: 24px 20px; }
+  .testimonial__avatar    { width: 160px; height: 160px; }
+  .testimonial__quote     { font-size: 19px; }
+  .testimonial__attribution { margin-top: 16px; }
+
+  // FAQ
+  .faq__head { padding: 14px 16px; }
+  .faq__q    { font-size: 16px; }
+  .faq__body { padding: 0 16px 16px; font-size: 15px; }
+
+  // Final CTA
+  .final-cta__card { padding: 32px 20px; border-radius: var(--r-lg); }
+
+  // Footer
+  .footer          { margin: 0 8px 16px; padding: 20px 12px; }
+  .footer__links   { gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+  // Parallax statement
+  .parallax-statement__inner { padding: 48px 20px; gap: 36px; }
+  .ps-circle                 { width: 280px; height: 280px; }
+}
+
+// Reduce motion — turn off nav animation too
+@media (prefers-reduced-motion: reduce) {
+  .nav__burger span { transition: none; }
+  .nav__links.is-open { animation: none; }
 }
